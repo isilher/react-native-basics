@@ -33,15 +33,27 @@ Topics:
 
 Topics:
 
-- Persistant data (storing data between app uses).
-- External data (using an api or local database).
-- ... tbd
+- Creating a custom Button component.
+- Fixing a text input to the top of your app.
+- React Native for web.
+- The React component lifecycle.
+- React Hooks (useState, useEffect).
+- Persistant data (storing data between app uses) using AsyncStorage.
 
 ## Lesson three (2021-06-22)
 
 Topics:
 
+- External data (using an api).
 - Writing tests.
 - The different types of tests.
 - What do you cover, and with which test type.
+- ... tbd
+
+## Lesson four (2021-06-29)
+
+- Triggering actions across the app.
+- App state management (Redux, Mobx, etc.).
+- React Context.
+- Apollo GraphQL.
 - ... tbd
