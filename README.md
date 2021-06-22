@@ -44,14 +44,15 @@ Topics:
 
 Topics:
 
+- Navigation.
 - External data (using an api).
 - Writing tests.
-- The different types of tests.
-- What do you cover, and with which test type.
 - ... tbd
 
 ## Lesson four (2021-06-29)
 
+- The different types of tests.
+- What do you cover, and with which test type.
 - Triggering actions across the app.
 - App state management (Redux, Mobx, etc.).
 - React Context.
