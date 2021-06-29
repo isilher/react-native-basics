@@ -13,14 +13,11 @@ import {
 } from "react-native"
 import { MyButton } from "../components"
 
-const DEFAULT_USER_NAME = "Unkown user"
-
 export const Login: React.FC<{
   userName?: string
   setUserName: Dispatch<React.SetStateAction<string | undefined>>
-}> = ({ userName, setUserName }) => {
+}> = ({ setUserName }) => {
   const [newUserName, setNewUserName] = useState("")
-  const [theme, setTheme] = useState("naval")
   const navigation = useNavigation()
 
   const updateUserName = () => {
@@ -36,17 +33,15 @@ export const Login: React.FC<{
       >
         <MyButton
           onPress={() => {
-            console.log("Presssed!")
+            setUserName("Rik")
             navigation.navigate("welcome")
           }}
-          theme={theme}
-        >
-          <Text style={{ color: "white" }}>Welcome me!</Text>
-        </MyButton>
+          title="Welcome me!"
+        />
       </ScrollView>
 
       <View style={styles.floatAtTop}>
-        <SafeAreaView>
+        <SafeAreaView style={styles.row}>
           <TextInput
             onChangeText={(text) => {
               setNewUserName(text)
@@ -54,9 +49,7 @@ export const Login: React.FC<{
             placeholder="Your name here"
             style={styles.nameInput}
           />
-          <MyButton theme="naval" onPress={updateUserName}>
-            <Text>SAVE</Text>
-          </MyButton>
+          <MyButton onPress={updateUserName} title="SAVE" />
         </SafeAreaView>
       </View>
     </View>
@@ -69,6 +62,7 @@ const styles = StyleSheet.create<{
   nameInput: ViewStyle
   myButton: ViewStyle
   floatAtTop: ViewStyle
+  row: ViewStyle
 }>({
   container: {
     marginTop: 40,
@@ -88,7 +82,7 @@ const styles = StyleSheet.create<{
     borderWidth: 2,
     height: 50,
     padding: 10,
-
+    flex: 1,
     backgroundColor: "white",
   },
   myButton: {
@@ -102,5 +96,8 @@ const styles = StyleSheet.create<{
     top: 10,
     left: 10,
     right: 10,
+  },
+  row: {
+    flexDirection: "row",
   },
 })

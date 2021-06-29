@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react"
-import { Pressable, StyleSheet, ViewStyle } from "react-native"
+import React, { useState } from "react"
+import { Pressable, StyleSheet, TextStyle, ViewStyle, Text } from "react-native"
 
 export const MyButton: React.FC<{
   onPress: () => void
-  theme: string
-}> = ({ onPress, theme, children }) => {
+  title?: string
+}> = ({ onPress, children, title }) => {
   const [opacity, setOpacity] = useState(1)
-  const [color, setColor] = useState("pink")
-
-  useEffect(() => {
-    if (theme === "naval") setColor("blue")
-    if (theme === "football") setColor("orange")
-  }, [theme])
+  const [color, setColor] = useState("blue")
 
   const buttonStyles = StyleSheet.compose(styles.myButton, {
     opacity,
@@ -26,8 +21,7 @@ export const MyButton: React.FC<{
   const onPressOut = () => {
     onPress()
     setOpacity(1)
-    if (theme === "naval") setColor("blue")
-    if (theme === "football") setColor("orange")
+    setColor("blue")
   }
 
   return (
@@ -36,6 +30,7 @@ export const MyButton: React.FC<{
       onPressOut={onPressOut}
       onPressIn={onPressIn}
     >
+      {title && <Text style={styles.title}>{title}</Text>}
       {children}
     </Pressable>
   )
@@ -43,10 +38,16 @@ export const MyButton: React.FC<{
 
 const styles = StyleSheet.create<{
   myButton: ViewStyle
+  title: TextStyle
 }>({
   myButton: {
     height: 50,
-    width: "50%",
-    backgroundColor: "pink",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 12,
+  },
+  title: {
+    color: "white",
+    fontSize: 30,
   },
 })

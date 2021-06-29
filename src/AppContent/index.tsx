@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useEffect } from "react"
 import {
   FlatList,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextStyle,
@@ -38,10 +39,11 @@ export const AppContent = ({
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={mixedTextStyle}>Hi {userName}!</Text>
       <FlatList
-        style={{ flex: 1 }}
+        style={styles.list}
+        contentContainerStyle={styles.listContainer}
         data={pokemon}
         ListEmptyComponent={() => <EmptyComponent />}
         keyExtractor={(item) => item.name}
@@ -53,18 +55,25 @@ export const AppContent = ({
           </View>
         )}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "pink",
     alignItems: "center",
   },
   text: {
     fontSize: 70,
-    paddingTop: 100,
+  },
+  list: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "white",
+  },
+  listContainer: {
+    paddingHorizontal: 20,
   },
 })
