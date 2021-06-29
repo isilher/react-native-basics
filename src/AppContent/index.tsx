@@ -9,15 +9,9 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+import { WelcomeText } from "./components/WelcomeText"
 
-export const AppContent = ({
-  userName,
-  titleStyle,
-}: {
-  userName?: string
-  titleStyle?: TextStyle
-}) => {
-  const mixedTextStyle = StyleSheet.flatten([styles.text, titleStyle])
+export const AppContent = () => {
   const [pokemon, setPokemon] = useState<{ name: string }[]>([])
 
   useEffect(() => {
@@ -40,7 +34,7 @@ export const AppContent = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={mixedTextStyle}>Hi {userName}!</Text>
+      <WelcomeText />
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.listContainer}
@@ -64,9 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "pink",
     alignItems: "center",
-  },
-  text: {
-    fontSize: 70,
   },
   list: {
     flex: 1,

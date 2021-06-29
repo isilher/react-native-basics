@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native"
-import React, { Dispatch, useState } from "react"
+import React, { Dispatch, useContext, useState } from "react"
 import { useEffect } from "react"
 import {
   SafeAreaView,
@@ -11,12 +11,10 @@ import {
   ViewStyle,
   Dimensions,
 } from "react-native"
+import { UserNameContext } from "../components/UserNameContext"
 import { MyButton } from "../components"
 
-export const Login: React.FC<{
-  userName?: string
-  setUserName: Dispatch<React.SetStateAction<string | undefined>>
-}> = ({ setUserName }) => {
+export const Login: React.FC = () => {
   const [newUserName, setNewUserName] = useState("")
   const navigation = useNavigation()
 
@@ -24,6 +22,8 @@ export const Login: React.FC<{
     setUserName(newUserName)
     navigation.navigate("welcome")
   }
+
+  const { setUserName } = useContext(UserNameContext)
 
   return (
     <View style={styles.container}>
@@ -46,7 +46,7 @@ export const Login: React.FC<{
             onChangeText={(text) => {
               setNewUserName(text)
             }}
-            placeholder="Your name here"
+            placeholder="Your name"
             style={styles.nameInput}
           />
           <MyButton onPress={updateUserName} title="SAVE" />
