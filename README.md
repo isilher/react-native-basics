@@ -47,7 +47,6 @@ Topics:
 - Navigation.
 - External data (using an api).
 - Writing tests.
-- ... tbd
 
 ## Lesson four (2021-06-29)
 
@@ -56,5 +55,11 @@ Topics:
 - Triggering actions across the app.
 - App state management (Redux, Mobx, etc.).
 - React Context.
-- Apollo GraphQL.
-- ... tbd
+
+## Lesson five
+
+- Redux
+- Apollo (GraphQL)
+- Polling and subscribing to data
+- Querying for data from within a list item (and caching)
+- Pagination in flatlists
