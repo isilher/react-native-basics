@@ -58,8 +58,13 @@ Topics:
 
 ## Lesson five
 
-- Redux
 - Apollo (GraphQL)
 - Polling and subscribing to data
 - Querying for data from within a list item (and caching)
 - Pagination in flatlists
+
+## Lesson six
+
+- Caching data in a list (revisited)
+- Redux
+- tbd..
