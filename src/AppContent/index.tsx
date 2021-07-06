@@ -1,18 +1,11 @@
 import React, { useState } from "react"
 import { useEffect } from "react"
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native"
+import { FlatList, SafeAreaView, StyleSheet, Text } from "react-native"
+import { PokemonListItem } from "./components/PokemonListItem"
 import { WelcomeText } from "./components/WelcomeText"
 
 export const AppContent = () => {
-  const [pokemon, setPokemon] = useState<{ name: string }[]>([])
+  const [pokemon, setPokemon] = useState<{ name: string; url: string }[]>([])
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -42,11 +35,7 @@ export const AppContent = () => {
         ListEmptyComponent={() => <EmptyComponent />}
         keyExtractor={(item) => item.name}
         renderItem={({ item, index }) => (
-          <View>
-            <Text>
-              {index}: {item.name}
-            </Text>
-          </View>
+          <PokemonListItem url={item.url} name={item.name} index={index} />
         )}
       />
     </SafeAreaView>
