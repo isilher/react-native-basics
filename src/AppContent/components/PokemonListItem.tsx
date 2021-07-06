@@ -1,30 +1,68 @@
-import React from "react"
+import React, { useEffect, useMemo, useState, useCallback } from "react"
 import { View, Text, StyleSheet, Image } from "react-native"
 
-export const PokemonListItem: React.FC<{
+const PokemonListItemContent: React.FC<{
   url: string
-  name: string
-  index: number
-}> = ({ name, index }) => {
+}> = ({ url }) => {
+  const [pokemon, setPokemon] = useState<{ name: string; id: number }>()
+
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      console.log(url)
+      const response = await fetch(url)
+      const pokemonResult = await response.json().catch((error) => {
+        console.log(error)
+        return
+      })
+
+      if (pokemonResult) setPokemon(pokemonResult)
+    }
+
+    fetchPokemons()
+  }, [])
+
+  const calculateDimensions = useCallback(
+    (number: number) => {
+      return Math.floor(1) * number
+    },
+    [url]
+  )
+
+  const stats = pokemon?.stats || []
+
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.title}>
-          {index}: {name}
+          {pokemon?.id}: {pokemon?.name || "loading"}
         </Text>
-        <Text>Some info</Text>
+        {stats.map((statObject) => (
+          <Text key={statObject.stat.name}>
+            {statObject.stat.name}: {statObject.base_stat}
+          </Text>
+        ))}
       </View>
 
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png",
+            uri:
+              pokemon?.sprites?.front_default ||
+              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png",
           }}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: `${calculateDimensions(100)}%`, height: "100%" }}
         />
       </View>
     </View>
   )
+}
+
+export const PokemonListItem: React.FC<{ url: string }> = (props) => {
+  const ExpensivelyRenderedPokemon = useMemo(() => {
+    return <PokemonListItemContent url={props.url} />
+  }, [props.url])
+
+  return ExpensivelyRenderedPokemon
 }
 
 const styles = StyleSheet.create({
