@@ -65,6 +65,17 @@ Topics:
 
 ## Lesson six
 
-- Caching data in a list (revisited)
-- Redux
-- tbd..
+- Flatlist optimisation (revisited)
+- Complex state dependencies
+- Using reducers
+
+## Lesson seven
+
+Recap and solidify what we learned so far
+
+## Future
+
+- Push notifications
+- Background actions
+- Releasing the app
+- Handling secrets
