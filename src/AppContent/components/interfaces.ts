@@ -12,6 +12,7 @@ export const FETCH_ACTION = "fetchPokemon"
 export const FETCH_SUCCESS = "fetchPokemonSuccess"
 export const FETCH_ERROR = "fetchPokemonError"
 export const LOAD_MORE = "loadMore"
+export const UPDATE_POKEMON = "updatePokemon"
 
 export interface IPokemonState {
   limit: number
@@ -34,4 +35,9 @@ export interface IFetchError {
 }
 export interface ILoadMore {
   type: typeof LOAD_MORE
+}
+
+export interface IUpdatePokemon {
+  type: typeof UPDATE_POKEMON
+  payload: IPokemon
 }
