@@ -12,6 +12,29 @@ const FETCH_SUCCESS = "fetchPokemonSuccess"
 const FETCH_ERROR = "fetchPokemonError"
 const LOAD_MORE = "loadMore"
 
+interface IPokemonState {
+  limit: number
+  loading: boolean
+  loadingMore: boolean
+  endReached: boolean
+  pokemon: IPokemon[]
+  error: string
+}
+interface IFetchAction {
+  type: typeof FETCH_ACTION
+}
+interface IFetchSucces {
+  type: typeof FETCH_SUCCESS
+  payload: IPokemon[]
+}
+interface IFetchError {
+  type: typeof FETCH_ERROR
+  payload: { message: string }
+}
+interface ILoadMore {
+  type: typeof LOAD_MORE
+}
+
 const defaultPokemonState = {
   limit: 10,
   loading: false,
@@ -21,10 +44,9 @@ const defaultPokemonState = {
   error: "",
 }
 const pokemonReducer = (
-  state: { limit: number; loading; loadingMore; endReached; pokemon; error },
-  action: { type: string; payload?: unknown }
+  state: IPokemonState,
+  action: IFetchAction | IFetchSucces | IFetchError | ILoadMore
 ) => {
-  console.log("🐙", state.pokemon.length, action?.payload?.length)
   switch (action.type) {
     case FETCH_ACTION:
       return {
