@@ -1,33 +1,10 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react"
 import { View, Text, StyleSheet, Image } from "react-native"
+import { IPokemon } from "./interfaces"
 
 export const PokemonListItem: React.FC<{
-  url: string
-}> = ({ url }) => {
-  const [pokemon, setPokemon] = useState<{
-    name: string
-    id: number
-    stats: { stat: { name: string }; base_stat: number }[]
-    sprites: {
-      front_default: string
-    }
-  }>()
-
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      console.log(url, pokemon)
-      const response = await fetch(url)
-      const pokemonResult = await response.json().catch((error) => {
-        console.log(error)
-        return
-      })
-
-      if (pokemonResult) setPokemon(pokemonResult)
-    }
-
-    fetchPokemons()
-  }, [])
-
+  pokemon: IPokemon
+}> = ({ pokemon }) => {
   const stats = pokemon?.stats || []
 
   return (
@@ -47,7 +24,7 @@ export const PokemonListItem: React.FC<{
         <Image
           source={{
             uri:
-              pokemon?.sprites.front_default ||
+              pokemon?.sprites?.front_default ||
               "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png",
           }}
           style={{ width: "100%", height: "100%" }}
@@ -64,6 +41,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "lightgrey",
     flexDirection: "row",
     justifyContent: "space-between",
+    height: 150,
   },
   title: {
     fontWeight: "bold",
