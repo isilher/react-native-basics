@@ -3,100 +3,29 @@ import { useCallback } from "react"
 import { useEffect } from "react"
 import { FlatList, SafeAreaView, StyleSheet, Text } from "react-native"
 import { MyButton } from "../components"
-import { IPokemon } from "./components/interfaces"
+import {
+  FETCH_ACTION,
+  FETCH_ERROR,
+  FETCH_SUCCESS,
+  IPokemon,
+  LOAD_MORE,
+} from "./components/interfaces"
 import { PokemonListItem } from "./components/PokemonListItem"
+import { defaultState, pokemonReducer } from "./components/reducer"
 import { WelcomeText } from "./components/WelcomeText"
 
-const FETCH_ACTION = "fetchPokemon"
-const FETCH_SUCCESS = "fetchPokemonSuccess"
-const FETCH_ERROR = "fetchPokemonError"
-const LOAD_MORE = "loadMore"
-
-interface IPokemonState {
-  limit: number
-  loading: boolean
-  loadingMore: boolean
-  endReached: boolean
-  pokemon: IPokemon[]
-  error: string
-}
-interface IFetchAction {
-  type: typeof FETCH_ACTION
-}
-interface IFetchSucces {
-  type: typeof FETCH_SUCCESS
-  payload: IPokemon[]
-}
-interface IFetchError {
-  type: typeof FETCH_ERROR
-  payload: { message: string }
-}
-interface ILoadMore {
-  type: typeof LOAD_MORE
-}
-
-const defaultPokemonState = {
-  limit: 10,
-  loading: false,
-  loadingMore: false,
-  endReached: false,
-  pokemon: [],
-  error: "",
-}
-const pokemonReducer = (
-  state: IPokemonState,
-  action: IFetchAction | IFetchSucces | IFetchError | ILoadMore
-) => {
-  switch (action.type) {
-    case FETCH_ACTION:
-      return {
-        ...state,
-        loading: true,
-        error: "",
-      }
-    case FETCH_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        loadingMore: false,
-        pokemon: action.payload,
-        endReached: (action?.payload?.length || 0) <= state.pokemon.length,
-        error: "",
-      }
-    case FETCH_ERROR:
-      return {
-        ...state,
-        loading: false,
-        loadingMore: false,
-        error: action.payload?.message || "Something went wrong!",
-        pokemon: [],
-      }
-    case LOAD_MORE:
-      return {
-        ...state,
-        limit: state.limit + 10,
-        loadingMore: true,
-        error: "",
-      }
-    default:
-      return state
-  }
-}
-
 export const AppContent = () => {
-  const [state, dispatch] = useReducer(pokemonReducer, defaultPokemonState)
+  const [state, dispatch] = useReducer(pokemonReducer, defaultState)
   const { limit, loading, endReached, loadingMore, pokemon, error } = state
 
   const getPokemons = useCallback(() => {
     const fetchPokemons = async () => {
-      console.log("fetching now!")
       dispatch({ type: FETCH_ACTION })
 
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
       )
       const pokemonResult = await response.json().catch((error) => {
-        console.log(error)
         dispatch({
           type: FETCH_ERROR,
           payload: { message: "API not available, try again later" },
@@ -148,12 +77,11 @@ export const AppContent = () => {
   }, [getPokemons])
 
   const EmptyComponent = () => {
-    if (error) return <Text style={{ color: "red" }}>{error}</Text>
+    if (error) return <Text style={styles.error}>{error}</Text>
     return <Text>Loading ...</Text>
   }
 
   const loadMorePokemon = () => {
-    console.log("end reached", endReached, loadingMore)
     if (endReached || loadingMore) return
     dispatch({ type: LOAD_MORE })
     getPokemons()
@@ -211,5 +139,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 20,
+  },
+  error: {
+    color: "red",
   },
 })
