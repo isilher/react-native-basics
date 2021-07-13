@@ -1,14 +1,21 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react"
 import { View, Text, StyleSheet, Image } from "react-native"
 
-const PokemonListItemContent: React.FC<{
+export const PokemonListItem: React.FC<{
   url: string
 }> = ({ url }) => {
-  const [pokemon, setPokemon] = useState<{ name: string; id: number }>()
+  const [pokemon, setPokemon] = useState<{
+    name: string
+    id: number
+    stats: { stat: { name: string }; base_stat: number }[]
+    sprites: {
+      front_default: string
+    }
+  }>()
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      console.log(url)
+      console.log(url, pokemon)
       const response = await fetch(url)
       const pokemonResult = await response.json().catch((error) => {
         console.log(error)
@@ -20,13 +27,6 @@ const PokemonListItemContent: React.FC<{
 
     fetchPokemons()
   }, [])
-
-  const calculateDimensions = useCallback(
-    (number: number) => {
-      return Math.floor(1) * number
-    },
-    [url]
-  )
 
   const stats = pokemon?.stats || []
 
@@ -47,22 +47,14 @@ const PokemonListItemContent: React.FC<{
         <Image
           source={{
             uri:
-              pokemon?.sprites?.front_default ||
+              pokemon?.sprites.front_default ||
               "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png",
           }}
-          style={{ width: `${calculateDimensions(100)}%`, height: "100%" }}
+          style={{ width: "100%", height: "100%" }}
         />
       </View>
     </View>
   )
-}
-
-export const PokemonListItem: React.FC<{ url: string }> = (props) => {
-  const ExpensivelyRenderedPokemon = useMemo(() => {
-    return <PokemonListItemContent url={props.url} />
-  }, [props.url])
-
-  return ExpensivelyRenderedPokemon
 }
 
 const styles = StyleSheet.create({
