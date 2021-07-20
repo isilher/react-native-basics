@@ -72,6 +72,11 @@ Topics:
 ## Lesson seven
 
 Recap and solidify what we learned so far
+See https://github.com/isilher/react-native-blackjack
+
+## Lesson eight
+
+Continuation of the blackjack app and basics recap
 
 ## Future
 
