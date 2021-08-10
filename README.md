@@ -78,8 +78,27 @@ See https://github.com/isilher/react-native-blackjack
 
 Continuation of the blackjack app and basics recap
 
+## Lesson nine
+
+Continuation of the blackjack app and basics recap
+
+- Horizontal FlatList
+- Calculating scores
+- Adding a house
+
+## Lesson ten
+
+Continuation of the blackjack app and basics recap
+
+- Cleaning up the game logic with a reducer (untangle our states)
+
 ## Future
 
+- Redux
+- Sagas
+- Using native libraries
+- Bridging native SDKs
+- Analytics
 - Push notifications
 - Background actions
 - Releasing the app
