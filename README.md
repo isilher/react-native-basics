@@ -92,14 +92,20 @@ Continuation of the blackjack app and basics recap
 
 - Cleaning up the game logic with a reducer (untangle our states)
 
+## Lesson eleven
+
+- Finishing the blackjack app and basics recap
+- Using native libraries
+- Bridging native SDKs (iOS)
+
+## Lesson twelve
+
+- Push notifications
+- Analytics
+
 ## Future
 
-- Redux
-- Sagas
-- Using native libraries
-- Bridging native SDKs
-- Analytics
-- Push notifications
+- Bridging native SDKs (android)
 - Background actions
 - Releasing the app
 - Handling secrets
